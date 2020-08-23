@@ -7,3 +7,5 @@ It's boring and tiring work.
 ReFFermator can do it for you automaticlly. Upload txt file with DOIs, choose format and Run formatting.
 
 At that time ReFFormator supports few publishing house (ACS, RSC, Elsevir, Springer, Nature, Science, Wiley, AIP, TandF). May have problems with some journals.
+
+Known issue with Elsevir redirect (Use article direct link instead DOI)
