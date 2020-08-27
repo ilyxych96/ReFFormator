@@ -17,12 +17,6 @@ Reference: [[Fedorov, D. G.]; [Gordon, M. S.] ]
 [A study of the relative importance of one and two-electron contributions to spin−orbit coupling.]
 [J. Chem. Phys.] [2000], [112], [5611−5623].
 
-
-#  добавить парсеры других издательств
-#  исправить баги парсеров
-#  проработать дизайн
-#  проверка готовых парсеров
-
 '''
 
 app.layout = html.Div([
