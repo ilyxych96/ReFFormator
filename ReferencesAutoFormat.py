@@ -2,28 +2,14 @@
 import requests
 from bs4 import BeautifulSoup as BS
 import re
-from scholarly import scholarly
-
-print(next(scholarly.search_author_custom_url('https://doi.org/10.1039/c9cp06455a')))
 
 '''
-Current Tasks:
-REFWORKS
 
-1) Parser test:     (Vanya)
-    Check journal in each publishers: work with current parser or not? (Input different doi)
-    Make a list with bad working journals!
+1) Parser test:  
+    Check journal in each publishers
     
 2) Solve Elsevir problem (don't work double redirect from doi)
 
-3) Dash User Interface
-    Make intercative GUI using example reference wich wil be projection on input references.
-    
-4) If we can't parse all information about author:
-    How find second name???
-    
-5) Parser of new articles and resend it in Telegram bot, search by keywords. (Think about it)
-    
 '''
 #NamesFormat = ['SURNAME', 'NAME', 'SECNAME']  # input form user
 #format = ['NAMES', 'TITLE', 'JOURNAL', 'YEAR', 'VOLUME', 'ISSUE', 'PageRange', 'DOI']  # input form user
@@ -705,14 +691,16 @@ def startparser(sourcefile, newNamesFormat, newformat):
 
 
 
-'''workmode = '1'
+#workmode = 'test'
 
-if workmode == '1':
-    print('Debug mode')
-    URL = 'https://doi.org/10.1021/acs.chemmater.9b03963'
-    tmpref = parser(URL)
-    print(referenceOrderEditor(tmpref, newNamesFormat, newformat))
-else:
-    startparser(sourcefile, newNamesFormat, newformat)
-'''
+if workmode == 'test':
+    testmode = 1
+    if testmode == '1':
+        print('Debug mode')
+        URL = 'https://doi.org/10.1021/acs.chemmater.9b03963'
+        tmpref = parser(URL)
+        print(referenceOrderEditor(tmpref, newNamesFormat, newformat))
+    else:
+        startparser(sourcefile, newNamesFormat, newformat)
+
 
