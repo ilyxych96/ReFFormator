@@ -693,6 +693,7 @@ def startparser(sourcefile, newNamesFormat, newformat):
 
 #workmode = 'test'
 workmode = 'prod'
+
 if workmode == 'test':
     testmode = 1
     if testmode == '1':
