@@ -1,6 +1,7 @@
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
+from dash_extensions import Download
 from dash.dependencies import Input, Output
 from dash import no_update
 import docx
@@ -73,7 +74,7 @@ app.layout = html.Div([
             dcc.Input(id='itemsdelimiter', value='; #; #; #; #; #; #; #;', type='text',
                     style={'width': '100%'}),
         ]),
-        html.Label('Use # to split the delimeters'),
+        html.Label('Use # to split the delimiters'),
     ],
     style={'display': 'inline-block', 'columns': '3'}),
 
@@ -266,8 +267,13 @@ app.layout = html.Div([
         # Allow multiple files to be uploaded
         multiple=False
     ),
-    dcc.Markdown(id='output-data-upload'),
+    dcc.Loading(id="loading-2",
+                children=dcc.Markdown(id='output-data-upload'),
+                type='cube',
+                fullscreen=True),
+    html.Div([html.Button("Download Result", id="download_btn"), Download(id="download")]),
     html.Div(id='hidden-input-reference', style={'display': 'none'}),
+
 ],
 style={'display': 'inline-block', 'width': '80%'})
 
@@ -318,7 +324,7 @@ def read_upload_file(filename):
                 references_list.append(RAF.parser(line[:-1]))
             else:
                 references_list.append(RAF.parser(line))
-        return '### File {} upload succesfully: it contains {} references'.format(filename, len(references_list)), references_list
+        return f'### File {filename} upload succesfully: {len(references_list)} links were found ', references_list
     except:
         return '### Something wrong with {}'.format(filename), None
 
