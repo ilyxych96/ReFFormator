@@ -428,7 +428,7 @@ def update_example_reference(name, nametype, secname, secnametype, surname, surn
 # parsed references
 @app.callback(
     Output(component_id='result_reference', component_property='children'),
-    [Input(component_id='hidden-input-reference', component_property='children'), #####################
+    [Input(component_id='hidden-input-reference', component_property='children'),
      Input(component_id='nametype', component_property='value'),
      Input(component_id='secnametype', component_property='value'),
      Input(component_id='surnametype', component_property='value'),
