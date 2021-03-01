@@ -585,4 +585,4 @@ def update_parser_reference(URL_list, nametype, secnametype, surnametype, namesd
 
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.server
