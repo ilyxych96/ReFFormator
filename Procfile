@@ -1,1 +1,1 @@
-gunicorn ReferencesAutoFormatDASHModule:ReferencesAutoFormatDASHModule.server
+web: gunicorn ReferencesAutoFormatDASHModule:server --preload

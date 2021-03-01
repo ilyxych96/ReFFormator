@@ -10,6 +10,7 @@ import ReferencesAutoFormat as RAF
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+server = app.server
 
 ''' ### DASH GUI MODULE ###
 Interactive input with example reference
@@ -584,5 +585,5 @@ def update_parser_reference(URL_list, nametype, secnametype, surnametype, namesd
         URL = ''
 
 
-if __name__ == '__main__':
-    app.server
+#if __name__ == '__main__':
+#    app.server
