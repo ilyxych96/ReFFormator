@@ -599,10 +599,10 @@ def download_word():
     return send_file('/downloads/ReFFormator_refereces.docx', as_attachment=True)
 
 # DEGUB
-if __name__ == '__main__':
-    app.run_server(debug=True)
+#if __name__ == '__main__':
+#   app.run_server(debug=True)
 
 # PROD
-#if __name__ == '__main__':
-#    app.server
+if __name__ == '__main__':
+    app.server
 
