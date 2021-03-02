@@ -1,9 +1,9 @@
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
-from dash_extensions import Download
 from dash.dependencies import Input, Output
 from dash import no_update
+from flask import send_file
 import docx
 import ReferencesAutoFormat as RAF
 
@@ -269,10 +269,15 @@ app.layout = html.Div([
         multiple=False
     ),
     dcc.Loading(id="loading-2",
-                children=dcc.Markdown(id='output-data-upload'),
+                children=[dcc.Markdown(id='output-data-upload'),
+                          html.A('Download Word File',
+                                 id='download_button',
+                                 href='/downloads/',
+                                 hidden=True,
+                                 style={'font-size': 25}),
+                          ],
                 type='cube',
                 fullscreen=True),
-    html.Div([html.Button("Download Result", id="download_btn"), Download(id="download")]),
     html.Div(id='hidden-input-reference', style={'display': 'none'}),
 
 ],
@@ -432,9 +437,9 @@ def update_example_reference(name, nametype, secname, secnametype, surname, surn
     return reference
 
 
-# parsed references
 @app.callback(
-    Output(component_id='result_reference', component_property='children'),
+    [Output(component_id='result_reference', component_property='children'),
+     Output('download_button', 'hidden')],
     [Input(component_id='hidden-input-reference', component_property='children'),
      Input(component_id='nametype', component_property='value'),
      Input(component_id='secnametype', component_property='value'),
@@ -459,6 +464,7 @@ def update_parser_reference(URL_list, nametype, secnametype, surnametype, namesd
     def form_reference(input_reference, nametype, secnametype, surnametype, namesdelimiter, titlestyles,
                           journalstyles, yearstyles, volumestyles, issuestyles, pagestyles, doistyles, nameorder,
                           referenceorder, itemsdelimiter):
+
         namesdelimiter = namesdelimiter.split('#')
         itemsdelimiter = itemsdelimiter.split('#')
         name_delimiters = dict(zip(nameorder, namesdelimiter))
@@ -570,20 +576,33 @@ def update_parser_reference(URL_list, nametype, secnametype, surnametype, namesd
                 par1.add_run(' ')
             count += 1
 
+
     try:
         doc = docx.Document()
         par1 = doc.add_paragraph('References:\n\n')
         for input_reference in URL_list:
+            print(input_reference)
             form_reference(input_reference, nametype, secnametype, surnametype, namesdelimiter, titlestyles,
                           journalstyles, yearstyles, volumestyles, issuestyles, pagestyles, doistyles, nameorder,
                           referenceorder, itemsdelimiter)
             par1.add_run('\n\n')
-
-        doc.save('ReFFormator_refereces.docx')
-        return 'Success'
+# записывает тоько первую ссылку???
+        doc.save('/downloads/ReFFormator_refereces.docx')
+        return 'Success', False
     except:
         URL = ''
+        return URL, True
 
 
+@app.server.route('/downloads/')
+def download_word():
+    return send_file('/downloads/ReFFormator_refereces.docx', as_attachment=True)
+
+# DEGUB
+if __name__ == '__main__':
+    app.run_server(debug=True)
+
+# PROD
 #if __name__ == '__main__':
 #    app.server
+
